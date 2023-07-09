@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:twitter_clone/features/auth/view/explore_view.dart';
 import 'package:twitter_clone/features/explore/view/explore_view.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_list.dart';
+import 'package:twitter_clone/features/notifications/views/notification_view.dart';
 import '../theme/theme.dart';
 import 'constants.dart';
 class UIConstants {
@@ -19,6 +20,6 @@ class UIConstants {
   static const List<Widget> bottomTabBarPages = [
     TweetList(),
     ExploreView(),
-    Text('Notification Screen'),
+    NotificationView(),
   ];
 }

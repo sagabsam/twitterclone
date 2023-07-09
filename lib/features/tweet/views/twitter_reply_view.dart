@@ -99,6 +99,7 @@ class TwitterReplyScreen extends ConsumerWidget {
             text: value,
             context: context,
             repliedTo: tweet.id,
+            repliedToUserId: tweet.uid,
           );
         },
         decoration: const InputDecoration(
