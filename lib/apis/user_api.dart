@@ -24,6 +24,7 @@ class UserAPI implements IUserAPI {
         databaseId: AppwriteConstants.databaseId,
         collectionId: AppwriteConstants.usersCollection,
         documentId: ID.unique(),
+        documentId: userModel.uid,
         data: userModel.toMap(),
       );
       return right(null);
@@ -32,5 +33,13 @@ class UserAPI implements IUserAPI {
     } catch (e, stackTrace) {
       return left(Failure(e.toString(), stackTrace));
     }
+  }
+  @override
+  Future<model.Document> getUserData(String uid) {
+    return _db.getDocument(
+        databaseId: AppwriteConstants.databaseId,
+        collectionId: AppwriteConstants.usersCollection,
+        documentId: uid,
+      );
   }
 }
