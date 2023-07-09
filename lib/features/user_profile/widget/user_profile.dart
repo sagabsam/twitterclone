@@ -50,7 +50,18 @@ class UserProfile extends ConsumerWidget {
                 alignment: Alignment.bottomRight,
                 margin: const EdgeInsets.all(20),
                 child: OutlinedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    if (currentUser.uid == user.uid) {
+                              Navigator.push(context, EditProfileView.route());
+                            } else {
+                              ref
+                                  .read(userProfileControllerProvider.notifier)
+                                  .followUser(
+                                      user: user,
+                                      context: context,
+                                      currentUser: currentUser);
+                            }
+                  },
                   style: ElevatedButton.styleFrom(
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(20),
@@ -63,7 +74,9 @@ class UserProfile extends ConsumerWidget {
                   child: Text(
                     currentUser.uid == user.uid
                         ? 'Edit Profile'
-                        : 'Follow',
+                        : currentUser.following.contains(user.uid)
+                                  ? 'Unfollow'
+                                  : 'Follow',
                     style: const TextStyle(color: Pallete.whiteColor,),
                   ),
                 ),
@@ -100,12 +113,12 @@ class UserProfile extends ConsumerWidget {
                 Row(
                   children: [
                     FollowCount(
-                      count: user.following.length -1,
+                      count: user.following.length,
                       text: 'Following',
                     ),
                     const SizedBox(width: 15),
                     FollowCount(
-                      count: user.followers.length -1,
+                      count: user.followers.length,
                       text: 'Followers',
                     ),
                   ],
