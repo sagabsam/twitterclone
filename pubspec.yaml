@@ -40,6 +40,7 @@ dependencies:
   flutter_svg: ^2.0.5
   fpdart: ^0.4.0
   image_picker: ^1.0.0
+  like_button: ^2.0.5
   timeago: ^3.5.0
 
 
