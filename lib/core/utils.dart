@@ -13,6 +13,7 @@ String getNameFromEmail(String email) {
 }
 
 Future<List<File>> pickImages() async {
+  // ignore: unused_local_variable
   List<File> images = [];
   final ImagePicker picker = ImagePicker();
   final imageFiles = await picker.pickMultiImage();
