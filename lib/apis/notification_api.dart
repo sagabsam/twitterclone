@@ -11,7 +11,7 @@ final notificationAPIProvider = Provider((ref) {
     db: ref.watch(appwriteDatabaseProvider),
     realtime: ref.watch(appwriteRealtimeProvider),
   );
-}); 
+});
 
 abstract class INotificationAPI {
   FutureEitherVoid createNotification(Notification notification);
@@ -20,6 +20,7 @@ abstract class INotificationAPI {
 }
 
 class NotificationAPI implements INotificationAPI {
+  final Databases _db;
   final Realtime _realtime;
   NotificationAPI({required Databases db, required Realtime realtime})
       : _realtime = realtime,
@@ -41,6 +42,7 @@ class NotificationAPI implements INotificationAPI {
       return left(Failure(e.toString(), stackTrace));
     }
   }
+
   @override
   Future<List<Document>> getNotifications(String uid) async {
     final documents = await _db.listDocuments(

@@ -3,7 +3,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:twitter_clone/features/auth/controller/explore_controller.dart';
 import 'package:twitter_clone/features/explore/controller/explore_controller.dart';
 import 'package:twitter_clone/features/explore/widgets/search_tile.dart';
-import 'package:twitter_clone/features/tweet/widgets/search_tile.dart';
 import 'package:twitter_clone/theme/pallete.dart';
 
 import '../../../common/common.dart';

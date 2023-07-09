@@ -8,16 +8,12 @@ import 'package:twitter_clone/theme/pallete.dart';
 
 class SideDrawer extends ConsumerWidget {
   const SideDrawer({super.key});
-  
-  get currentUserDetailsProvider => null;
-
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final currentUser = ref.watch(currentUserDetailsProvider).value;
     if (currentUser == null) {
       return const Loader();
     }
-
     return SafeArea(
       child: Drawer(
         backgroundColor: Pallete.backgroundColor,
@@ -53,7 +49,16 @@ class SideDrawer extends ConsumerWidget {
                   fontSize: 22,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                ref
+                    .read(userProfileControllerProvider.notifier)
+                    .updateUserProfile(
+                      userModel: currentUser.copyWith(isTwitterBlue: true),
+                      context: context,
+                      bannerFile: null,
+                      profileFile: null,
+                    );
+              },
             ),
             ListTile(
               leading: const Icon(
@@ -67,14 +72,7 @@ class SideDrawer extends ConsumerWidget {
                 ),
               ),
               onTap: () {
-                ref
-                    .read(userProfileControllerProvider.notifier)
-                    .updateUserProfile(
-                      userModel: currentUser.copyWith(isTwitterBlue: true),
-                      context: context,
-                      bannerFile: null,
-                      profileFile: null,
-                    );
+                ref.read(authControllerProvider.notifier).logout(context);
               },
             ),
           ],
