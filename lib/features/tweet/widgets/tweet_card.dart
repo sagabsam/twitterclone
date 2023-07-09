@@ -11,6 +11,7 @@ import 'package:twitter_clone/features/tweet/widgets/hastags_text.dart';
 import 'package:twitter_clone/features/tweet/widgets/tweet_icon_button.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
 import 'package:twitter_clone/theme/pallete.dart';
+import 'package:twitter_clone/features/tweet/controller/tweet_controller.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:any_link_preview/any_link_preview.dart';
 import 'package:like_button/like_button.dart';
@@ -153,4 +154,6 @@ class TweetCard extends ConsumerWidget {
           loading: () => const Loader(),
         );
   }
+  
+   userDetailsProvider(String uid) {}
 }
