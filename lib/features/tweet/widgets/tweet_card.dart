@@ -19,10 +19,15 @@ import 'package:like_button/like_button.dart';
 class TweetCard extends ConsumerWidget {
   final Tweet tweet;
   const TweetCard({super.key, required this.tweet});
+  
+  get currentUserDetailsProvider => null;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return ref.watch(userDetailsProvider(tweet.uid)).when(
+    final currentUser = ref.watch(currentUserDetailsProvider).value;
+    return currentUser == null
+        ? const SizedBox()
+        : ref.watch(userDetailsProvider(tweet.uid)).when(
           data: (user) {
             return Column(
               children: [
@@ -155,5 +160,5 @@ class TweetCard extends ConsumerWidget {
         );
   }
   
-   userDetailsProvider(String uid) {}
+  userDetailsProvider(String uid) {}
 }

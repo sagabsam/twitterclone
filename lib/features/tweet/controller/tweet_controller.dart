@@ -9,6 +9,7 @@ import 'package:twitter_clone/core/emuns/tweet_type_enum.dart';
 import 'package:twitter_clone/features/auth/controller/auth_controller.dart';
 import 'package:twitter_clone/models/tweet_model.dart';
 import 'package:twitter_clone/models/user_model.dart';
+import 'package:appwrite/appwrite.dart';
 
 final tweetControllerProvider =
     StateNotifierProvider<TweetController, bool>((ref) {
@@ -59,10 +60,35 @@ class TweetController extends StateNotifier<bool> {
     }
 
     tweet = tweet.copyWith(
-      likes: likes,
+      likes: likes, retweetedBy: '',
     );
     final res = await _tweetAPI.likeTweet(tweet);
     res.fold((l) => null, (r) => null);
+  }
+  void reshareTweet(
+      Tweet tweet, UserModel currentUser, BuildContext context) async {
+    tweet = tweet.copyWith(
+      retweetedBy: currentUser.name,
+      likes: [],
+      commentIds: [],
+      reshareCount: tweet.reshareCount + 1,
+    );
+    final res = await _tweetAPI.updateReshareCount(tweet);
+    res.fold(
+      (l) => showSnackbar(context, l.message),
+      (r) async {
+        tweet = tweet.copyWith(
+          id: ID.unique(),
+          reshareCount: 0,
+          tweetedAt: DateTime.now(), retweetedBy: '',
+        );
+        final res2 = await _tweetAPI.shareTweet(tweet);
+        res2.fold(
+          (l) => showSnackbar(context, l.message), 
+          (r) => showSnackbar(context, 'Retweeted!')
+        );
+      },
+    );
   }
 
   void shareTweet({
