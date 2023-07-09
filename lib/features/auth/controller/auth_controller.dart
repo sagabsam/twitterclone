@@ -84,3 +84,7 @@ class AuthController extends StateNotifier<bool> {
     );
   }
 }
+
+class _userAPI {
+  static saveUserData(UserModel userModel) {}
+}
