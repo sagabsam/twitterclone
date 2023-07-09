@@ -66,7 +66,16 @@ class SideDrawer extends ConsumerWidget {
                   fontSize: 22,
                 ),
               ),
-              onTap: () {},
+              onTap: () {
+                ref
+                    .read(userProfileControllerProvider.notifier)
+                    .updateUserProfile(
+                      userModel: currentUser.copyWith(isTwitterBlue: true),
+                      context: context,
+                      bannerFile: null,
+                      profileFile: null,
+                    );
+              },
             ),
           ],
         ),
