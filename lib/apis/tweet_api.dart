@@ -13,6 +13,7 @@ final tweetAPIProvider = Provider((ref) {
 
 abstract class ITweetAPI {
   FutureEither<Document> shareTweet(Tweet tweet);
+  Future<List<Document>> getTweets();
 }
 
 class TweetAPI implements ITweetAPI {
@@ -23,7 +24,7 @@ class TweetAPI implements ITweetAPI {
     try {
       final document = await _db.createDocument(
         databaseId: AppwriteConstants.databaseId,
-        collectionId: AppwriteConstants.tweetsCollection,
+        collectionId: AppwriteConstants.tweetCollection,
         documentId: ID.unique(),
         data: tweet.toMap(),
       );
@@ -33,5 +34,13 @@ class TweetAPI implements ITweetAPI {
     } catch (e, stackTrace) {
       return left(Failure(e.toString(), stackTrace));
     }
+  }
+  @override
+  Future<List<Document>> getTweets() async {
+    final documents = await _db.listDocuments(
+      databaseId: AppwriteConstants.databaseId,
+      collectionId: AppwriteConstants.tweetCollection,
+    );
+    return documents.documents;
   }
 }
